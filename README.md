@@ -22,9 +22,9 @@ This repository contains:
 
 Run a 3-quorum XAP 12.1 cluster
 
-	docker run --name xap -d -p 8090:8090 -P gigaspaces/xap:12.0.1 --manager
-    docker run --name xap -d -P gigaspaces/xap:12.0.1 --manager
-	docker run --name xap -d -P gigaspaces/xap:12.0.1 --manager
+	docker run --name xap -d -p 8090:8090 -P gigaspaces/xap:12.1.0 --manager
+    docker run --name xap -d -P gigaspaces/xap:12.1.0 --manager
+	docker run --name xap -d -P gigaspaces/xap:12.1.0 --manager
 
 #### REST Orchestration 
 
