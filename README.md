@@ -23,8 +23,8 @@ This repository contains:
 Run a 3-quorum XAP 12.1 cluster
 
 	docker run --name xap -d -p 8090:8090 -P gigaspaces/xap:12.1.0 --manager
-    docker run --name xap -d -P gigaspaces/xap:12.1.0 --manager
-	docker run --name xap -d -P gigaspaces/xap:12.1.0 --manager
+    docker run --name xap2 -d -P gigaspaces/xap:12.1.0 --manager
+	docker run --name xap3 -d -P gigaspaces/xap:12.1.0 --manager
 
 #### REST Orchestration 
 
@@ -34,7 +34,7 @@ List all the hosts in the grid:
     
 Launch a GSC with 2GB heap: 
 
-	curl -X POST --header 'Content-Type: application/json' --header 'Accept: text/plain' -d '{ \ 
+	curl -X POST --header 'Content-Type: application/json' -d '{ \ 
    		"host": "172.17.0.2", \ 
    		"memory": "2g" \ 
  		}' 'http://localhost:8090/v1/containers'
@@ -42,7 +42,7 @@ Launch a GSC with 2GB heap:
 
 Deploy a space with 1 partition, no backups: 
 
-	curl -X POST --header 'Content-Type: application/json' --header 'Accept: text/plain' 'http://localhost:8090/v1/spaces?name=mySpace&partitions=1&backups=false'
+	curl -X POST 'http://localhost:8090/v1/spaces?name=mySpace&partitions=1&backups=false'
 
     
 
