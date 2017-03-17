@@ -1,4 +1,4 @@
-## xap-docker for XAP 12.1
+## XAP 12.1 Docker deployment and RESTful orchestration
 
 This repository contains:
 
@@ -16,7 +16,7 @@ This repository contains:
 
 4. Build an image from Dockerfile: `docker build -t gigaspaces/xap:12.1.0 .`
 
-### Run XAP 12.1 Data Grid across three con
+### Run XAP 12.1 data grid across three containers
 
 #### XAP Manager node
 
@@ -28,7 +28,23 @@ Run a 3-quorum XAP 12.1 cluster
 
 #### REST Orchestration 
 
-Check list of data grid nodes
+List all the hosts in the grid: 
+
 	curl -X GET --header 'Accept: application/json' 'http://localhost:8090/v1/hosts'
+    
+Launch a GSC with 2GB heap: 
+
+	curl -X POST --header 'Content-Type: application/json' --header 'Accept: text/plain' -d '{ \ 
+   	"host": "172.17.0.2", \ 
+   	"memory": "1g" \ 
+    	\ 
+ 	}' 'http://localhost:8090/v1/containers'
+	
+
+Deploy a space with 1 partition: 
+
+	curl -X POST --header 'Content-Type: application/json' --header 'Accept: text/plain' 'http://localhost:8090/v1/spaces?name=mySpace&partitions=1&backups=false'
+
+    
 
 
