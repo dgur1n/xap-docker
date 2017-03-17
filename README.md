@@ -35,13 +35,12 @@ List all the hosts in the grid:
 Launch a GSC with 2GB heap: 
 
 	curl -X POST --header 'Content-Type: application/json' --header 'Accept: text/plain' -d '{ \ 
-   	"host": "172.17.0.2", \ 
-   	"memory": "1g" \ 
-    	\ 
- 	}' 'http://localhost:8090/v1/containers'
+   		"host": "172.17.0.2", \ 
+   		"memory": "2g" \ 
+ 		}' 'http://localhost:8090/v1/containers'
 	
 
-Deploy a space with 1 partition: 
+Deploy a space with 1 partition, no backups: 
 
 	curl -X POST --header 'Content-Type: application/json' --header 'Accept: text/plain' 'http://localhost:8090/v1/spaces?name=mySpace&partitions=1&backups=false'
 
