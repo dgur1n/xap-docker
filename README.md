@@ -10,7 +10,7 @@ This repository contains:
 
 1. Install [Docker](https://www.docker.com/).
 
-2. Clone [xap-docker](https://github.com/xap/xap-docker.git)
+2. Clone [xap-docker](https://github.com/ahodroj/xap-docker.git)
 
 3. cd xap-docker 
 
