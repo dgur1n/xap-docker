@@ -1,19 +1,23 @@
+# To test 
+# docker run -i -t --entrypoint=/bin/bash <image id-last-line-from-the-build>
 FROM java:8
 
-ENV XAP_VERSION 12.0.1
-ENV XAP_BUILD_NUMBER 16600
-ENV XAP_MILESTONE ga
-ENV XAP_HOME_DIR /opt/xap
+ENV XAP_VERSION 12.1.0
+ENV XAP_BUILD_NUMBER 16721
+ENV XAP_MILESTONE m21
+ENV XAP_HOME_DIR /tmp/xap
 
 RUN mkdir -p ${XAP_HOME_DIR}
 
 # Download XAP
-ADD http://d3a0pn6rx5g9yg.cloudfront.net/sites/default/files/private/product/gigaspaces-xap-premium-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}.zip /tmp/gigaspaces-xap-premium-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}.zip
-RUN unzip /tmp/gigaspaces-xap-premium-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}.zip -d ${XAP_HOME_DIR} \
-    && rm -f /tmp/gigaspaces-xap-premium-*.zip
+ADD https://gigaspaces-repository-eu.s3.amazonaws.com/com/gigaspaces/xap/12.1.0/12.1.0-m21/gigaspaces-xap-enterprise-12.1.0-m21-b16721.zip /tmp/gigaspaces-xap-enterprise-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}.zip
 
-ENV XAP_HOME ${XAP_HOME_DIR}/gigaspaces-xap-premium-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}
+RUN unzip /tmp/gigaspaces-xap-enterprise-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}.zip -d ${XAP_HOME_DIR} \
+    && rm -f /tmp/gigaspaces-xap-enterprise-*.zip
+
+ENV XAP_HOME ${XAP_HOME_DIR}/gigaspaces-xap-enterprise-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}
 ENV XAP_NIC_ADDRESS "#eth0:ip#"
+ENV XAP_MANAGER_SERVERS "172.17.0.2,172.17.0.3,172.17.0.4"
 ENV EXT_JAVA_OPTIONS "-Dcom.gs.multicast.enabled=false -Dcom.gs.multicast.discoveryPort=4174 -Dcom.gs.transport_protocol.lrmi.bind-port=10000-10100 -Dcom.gigaspaces.start.httpPort=9104 -Dcom.gigaspaces.system.registryPort=7102"
 ENV XAP_GSM_OPTIONS "-Xms128m -Xmx128m"
 ENV XAP_GSC_OPTIONS "-Xms128m -Xmx128m"
@@ -28,6 +32,6 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 WORKDIR ${XAP_HOME}
 
-EXPOSE 10000-10100 9104 7102 4174 8099
+EXPOSE 10000-10100 9104 7102 4174 8099 8080 8090 2888 3888
 
 CMD ["./bin/gs-agent.sh"]
