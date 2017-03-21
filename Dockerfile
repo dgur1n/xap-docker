@@ -3,14 +3,14 @@
 FROM java:8
 
 ENV XAP_VERSION 12.1.0
-ENV XAP_BUILD_NUMBER 16721
-ENV XAP_MILESTONE m21
+ENV XAP_BUILD_NUMBER 16723
+ENV XAP_MILESTONE m22
 ENV XAP_HOME_DIR /tmp/xap
 
 RUN mkdir -p ${XAP_HOME_DIR}
 
 # Download XAP
-ADD https://gigaspaces-repository-eu.s3.amazonaws.com/com/gigaspaces/xap/12.1.0/12.1.0-m21/gigaspaces-xap-enterprise-12.1.0-m21-b16721.zip /tmp/gigaspaces-xap-enterprise-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}.zip
+ADD https://gigaspaces-repository-eu.s3.amazonaws.com/com/gigaspaces/xap/12.1.0/12.1.0-${XAP_MILESTONE}/gigaspaces-xap-enterprise-12.1.0-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}.zip /tmp/gigaspaces-xap-enterprise-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}.zip
 
 RUN unzip /tmp/gigaspaces-xap-enterprise-${XAP_VERSION}-${XAP_MILESTONE}-b${XAP_BUILD_NUMBER}.zip -d ${XAP_HOME_DIR} \
     && rm -f /tmp/gigaspaces-xap-enterprise-*.zip
