@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: xap-node
+    version: 12.1.0
+  name: xap-node
+spec:
+  ports:
+    - port: 4174
+      targetPort: 4174
+      protocol: TCP
+      name: lus
+    - port: 8090
+      targetPort: 8090
+      protocol: TCP
+      name: manager
+  selector:
+    app: xap-node
+    version: 12.1.0
+  type: NodePort
