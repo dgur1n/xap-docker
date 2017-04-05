@@ -12,15 +12,17 @@ XAP_GSC_OPTIONS=""
 XAP_GSM_OPTIONS=""
 
 create-image-repo-secret:
+	@echo -e '\n-- Creating docker repo secret'
 	-kubectl create secret docker-registry $(IMAGE_REPO_SECRET) --docker-username=$(DOCKER_USER) --docker-password=$(DOCKER_PASSWORD) --docker-email=$(DOCKER_EMAIL)
-start-xap-datagrid:
+create-xap-license-secret:
 	@echo -e '\n-- Creating XAP license secret'
-	@-kubectl create secret generic xap-license-secret --from-literal=xap-license=$(XAP_LICENSE_KEY)
-
+	@-kubectl delete secret xap-license-secret
+	@kubectl create secret generic xap-license-secret --from-literal=xap-license=$(XAP_LICENSE_KEY)
+start-xap:
 	@echo -e '\n-- Creating XAP configuration maps'
 	@-kubectl delete configmap xap-config-map
 	@echo 'New configmap:'
-	@-kubectl create configmap xap-config-map \
+	@kubectl create configmap xap-config-map \
 		--from-literal=xap-gsc-options=$(XAP_GSC_OPTIONS) \
 		--from-literal=xap-gsm-options=$(XAP_GSM_OPTIONS) \
 		--from-literal=xap-lus-options=$(XAP_LUS_OPTIONS) --output=yaml
@@ -38,7 +40,7 @@ start-xap-datagrid:
 	@sed -e 's|<image>|$(DOCKER_IMAGE)|g' -e 's|<imagePullSecret>|$(IMAGE_REPO_SECRET)|g' gs-webui.yaml | kubectl create -f -
 
 	@echo ''
-stop-xap-datagrid:
+stop-xap:
 	-kubectl delete services gs-webui
 	-kubectl delete services xap-node
 	-kubectl delete --all deployments

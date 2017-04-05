@@ -9,6 +9,7 @@ spec:
   ports:
     - port: 8099
       targetPort: 8099
+      nodePort: 30099
       protocol: TCP
   selector:
     app: gs-webui
