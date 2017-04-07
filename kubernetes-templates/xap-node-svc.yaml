@@ -8,10 +8,13 @@ metadata:
 spec:
   ports:
     - port: 8090
-      targetPort: 8090
       nodePort: 30090
       protocol: TCP
       name: manager
+    - port: 4174
+      nodePort: 30174
+      protocol: TCP
+      name: lus
   selector:
     app: xap-node
     version: 12.1.0
